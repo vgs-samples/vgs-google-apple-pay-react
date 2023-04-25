@@ -1,0 +1,1 @@
+# vgs-collect-google-apple-pay-react
