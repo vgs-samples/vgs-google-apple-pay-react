@@ -1,14 +1,17 @@
 import React from 'react';
-import { ApplePayButton } from "react-apple-pay-button";
+import { Helmet } from "react-helmet";
 
 const ApplePay = (props) => {
 
-  const onRequestApplePay = () => {};
   return (
-    <ApplePayButton onClick={onRequestApplePay} theme="light">
-      {"Buy with"}
-    </ApplePayButton>
-  );
+    <>
+      <Helmet>
+        <script src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js"></script>
+      </Helmet>
+      <apple-pay-button buttonstyle="black" type="pay" locale="en" style={{ display: "block", width: "240px", height: "50px" }}>
+      </apple-pay-button>
+    </>
+  )
 }
 
 export default ApplePay

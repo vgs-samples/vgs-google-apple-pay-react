@@ -3,8 +3,6 @@ import axios from 'axios'
 
 const GooglePay = (props) => {
 
-  const ORG_ID = "AC5dzmDWXoWwjtHXSBhh9mzw"
-
   const passToParent = props.passToParent
   const state = props.state 
 
@@ -16,13 +14,13 @@ const GooglePay = (props) => {
     // unless they're used for merchant-initiated transactions with user
     // consent in place.
     let paymentToken = JSON.parse(token.paymentMethodData.tokenizationData.token);
-    let url = `https://tntxmzpmtvn.sandbox.verygoodproxy.com/post`
+    let url = `https://${props.vgs.VAULT_ID}.sandbox.verygoodproxy.com/post`
     let payload = {
         google_pay_payload: {
             token: paymentToken
         }
     }
-    
+
     state.request = JSON.stringify(payload, null, 2)
 
     axios.post(url, payload)
@@ -54,7 +52,7 @@ const GooglePay = (props) => {
               type: 'PAYMENT_GATEWAY',
               parameters: {
                 gateway: 'verygoodsecurity',
-                gatewayMerchantId: ORG_ID,
+                gatewayMerchantId: props.vgs.ORG_ID,
               },
             },
           },
