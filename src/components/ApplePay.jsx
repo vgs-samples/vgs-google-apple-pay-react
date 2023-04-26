@@ -6,11 +6,9 @@ const ApplePay = (props) => {
 
   const [canLoad, setLoad] = useState(false)
 
-  const ApplePay = window.ApplePaySession
-  const vgs = props.vgs
+  const ApplePaySession = window.ApplePaySession
+  const {vgs, state, passToParent } = props
   const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
-  const state = props.state
-  const passToParent = props.passToParent
   let backend = "yourbackendserver.com"
 
   // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
@@ -26,13 +24,13 @@ const ApplePay = (props) => {
     
 
   useEffect(() => {
-    if (ApplePay) {
+    if (ApplePaySession) {
       var merchantIdentifier = 'merchant.verygoodsecurity.demo.applepay';
-      if (ApplePay.canMakePayments(merchantIdentifier)) {
+      if (ApplePaySession.canMakePayments(merchantIdentifier)) {
         setLoad(true)
       }
     }
-  }, [ApplePay])
+  }, [ApplePaySession])
   
   const createApplePaySession = () => {
 
