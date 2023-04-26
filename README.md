@@ -16,7 +16,7 @@ You may also see any lint errors in the console.
 
 #### Note: You will need to run the local server in HTTPS for Apple Pay
 
-The Apple Pay button will not display on a non-HTTPS domain. You can trust the included ca.crt (localhost), or configure it your own way. 
+The Apple Pay button will not display on a non-HTTPS domain. You can trust the included ca.cer (localhost), or configure it your own way. 
 
 More information: 
 
