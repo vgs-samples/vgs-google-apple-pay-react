@@ -5,6 +5,7 @@ const GooglePay = (props) => {
 
   const passToParent = props.passToParent
   const state = props.state 
+  const vgs = props.vgs 
 
   const processGooglePay = (token) => {
     // show returned data in developer console for debugging
@@ -14,7 +15,7 @@ const GooglePay = (props) => {
     // unless they're used for merchant-initiated transactions with user
     // consent in place.
     let paymentToken = JSON.parse(token.paymentMethodData.tokenizationData.token);
-    let url = `https://${props.vgs.VAULT_ID}.sandbox.verygoodproxy.com/post`
+    let url = `https://${vgs.VAULT_ID}-${vgs.GOOGLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
     let payload = {
         google_pay_payload: {
             token: paymentToken

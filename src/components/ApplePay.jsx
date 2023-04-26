@@ -1,15 +1,100 @@
-import React from 'react';
-import { Helmet } from "react-helmet";
+import React, {useState, useEffect} from 'react';
+import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
+import axios from 'axios'
 
 const ApplePay = (props) => {
 
+  const [canLoad, setLoad] = useState(false)
+
+  const ApplePay = window.ApplePaySession
+  const vgs = props.vgs
+  const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+  const state = props.state
+  const passToParent = props.passToParent
+  let backend = "yourbackendserver.com"
+
+  // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
+  // useEffect(() => {
+  //   if (ApplePay) {
+  //     var merchantIdentifier = 'merchant.verygoodsecurity.demo.applepay';
+  //     var promise = ApplePay.canMakePaymentsWithActiveCard(merchantIdentifier);
+  //     promise.then(function (canMakePayments) {
+  //         if (canMakePayments)
+  //           setLoad(true)
+  //   }); }
+  // }, [])
+    
+
+  useEffect(() => {
+    if (ApplePay) {
+      var merchantIdentifier = 'merchant.verygoodsecurity.demo.applepay';
+      if (ApplePay.canMakePayments(merchantIdentifier)) {
+        setLoad(true)
+      }
+    }
+  }, [ApplePay])
+  
+  const createApplePaySession = () => {
+
+    var request = {
+      countryCode: 'US',
+      currencyCode: 'USD',
+      supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
+      merchantCapabilities: ['supports3DS'],
+      total: { label: 'Very Good Security', amount: '10.00' },
+    }
+    var session = new ApplePay(3, request);
+    
+    session.begin()
+    
+    session.onvalidatemerchant = event => {
+        console.log(event)
+        // Call your own server to request a new merchant session.
+        // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
+        axios.get(backend)
+          .then(res => res.json()) // Parse response as JSON.
+          .then(merchantSession => {
+            session.completeMerchantValidation(merchantSession);
+          })
+          .catch(err => {
+            console.error("Error fetching merchant session", err);
+          });
+    };
+
+    session.onshippingcontactselected = event => {
+      // Do things
+    }
+    
+    session.onpaymentauthorized = token => {
+      axios.post(url, token)
+        .then(function (response) {
+          state.success = 'Success!'
+          session.completePayment({"status": 0})
+          state.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
+          passToParent(state)
+        })
+        .catch(function (error) {
+          state.error = error
+          session.completePayment({
+            "status": 1,
+            "errors": [error]
+        })
+          passToParent(state)
+        });
+    }
+  }
+
   return (
     <>
-      <Helmet>
-        <script src="https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js"></script>
-      </Helmet>
-      <apple-pay-button buttonstyle="black" type="pay" locale="en" style={{ display: "block", width: "240px", height: "50px" }}>
-      </apple-pay-button>
+      {
+        canLoad
+          ? <apple-pay-button onMouseDown={createApplePaySession}  buttonstyle="black" type="pay" locale="en" style={{ height: "45px" }}></apple-pay-button>
+          : <Alert status='warning' variant='solid'>
+              <AlertIcon />
+              <AlertDescription>Apple Pay is not supported with current configuration.</AlertDescription>
+            </Alert>
+      }
+      
     </>
   )
 }

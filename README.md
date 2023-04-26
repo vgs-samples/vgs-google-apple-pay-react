@@ -6,6 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+Note: You will need to trust add ca.crt on your machine for the Apple Pay integration to display. 
+
+Windows: https://medium.com/@praveenmobdev/localhost-as-https-with-reactjs-app-on-windows-a1270d7fbd1f
+MacOS (use system keychain): https://support.apple.com/en-my/guide/keychain-access/kyca2431/mac
+
 ### `npm start`
 
 Runs the app in the development mode.\
