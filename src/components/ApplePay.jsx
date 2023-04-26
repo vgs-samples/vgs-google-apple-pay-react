@@ -7,7 +7,7 @@ const ApplePay = (props) => {
   const [canLoad, setLoad] = useState(false)
 
   const ApplePaySession = window.ApplePaySession
-  const {vgs, state, passToParent } = props
+  const { vgs, state, passToParent } = props
   const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   let backend = "yourbackendserver.com"
 
