@@ -1,5 +1,7 @@
 # Very Good Security - Google and Apple Pay React Example
 
+![Alt text](/public/splash.png?raw=true "Title")
+
 ## To run the app: 
 
 ### `npm start`
