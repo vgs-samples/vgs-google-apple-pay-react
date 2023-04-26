@@ -19,12 +19,12 @@ const emotionCache = createCache({
 function App() {
 
   const vgs = {
-
     VAULT_ID: "tntq31aihwk",
     ORG_ID: "ACmsziNd1zaK1wPseoXvkptS",
     GOOGLE_PAY_ROUTE_ID: "dbcb64c8-a58e-40f6-addc-9c8b363bebb3",
     APPLE_PAY_ROUTE_ID: "0b807ac5-d13b-4511-b7b7-99c4aaa2d0df"
   }
+  
   const [googlePayState, updateGooglePayState] = useState({})
   const [applePayState, updateApplePayState] = useState({})
 

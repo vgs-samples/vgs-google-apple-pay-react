@@ -41,7 +41,7 @@ const ApplePay = (props) => {
       merchantCapabilities: ['supports3DS'],
       total: { label: 'Very Good Security', amount: '10.00' },
     }
-    var session = new ApplePay(3, request);
+    var session = new ApplePaySession(3, request);
     
     session.begin()
     
