@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const GooglePay = (props) => {
 
-  const {vgs, state, passToParent } = props
+  const { vgs, state, passToParent } = props
 
   const processGooglePay = (token) => {
     // show returned data in developer console for debugging
