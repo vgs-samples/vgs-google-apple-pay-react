@@ -2,6 +2,12 @@ import React, {useState, useEffect} from 'react';
 import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 import axios from 'axios'
 
+
+// You must include the ApplePay JS SDK in your page.
+// https://applepay.cdn-apple.com/jsapi/v1/apple-pay-sdk.js
+// We have included this in the <head> in public/index.html
+
+
 const ApplePay = (props) => {
 
   const [canLoad, setLoad] = useState(false)
@@ -41,7 +47,7 @@ const ApplePay = (props) => {
       merchantCapabilities: ['supports3DS'],
       total: { label: 'Very Good Security', amount: '10.00' },
     }
-    var session = new ApplePaySession(3, request);
+    var session = new ApplePaySession(8, request);
     
     session.begin()
     
