@@ -84,18 +84,18 @@ const ApplePay = (props) => {
         }).then(res => {
           if (res.status !== 200) {
             state.error = JSON.stringify(res.data)
-            passToParent(state)
+            passToParent("apple", state)
             callback({ approved: false })
           } else {
             state.success = 'Success!'
             state.response = JSON.stringify(res.data)
-            passToParent(state)
+            passToParent("apple", state)
             callback({ approved: true })
           }
         }).catch(error => {
           // Not a processing error, code/fetch error
           
-          passToParent(state)
+          passToParent("apple", state)
           console.log(error)
           callback({ approved: false })
         });
