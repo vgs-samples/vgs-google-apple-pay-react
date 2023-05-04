@@ -4,6 +4,7 @@ import axios from 'axios'
 const GooglePay = (props) => {
 
   const { vgs, data, passToParent } = props
+  const update = Object.assign({}, data)
 
   const processGooglePay = (token) => {
     // show returned data in developer console for debugging
@@ -20,17 +21,17 @@ const GooglePay = (props) => {
         }
     }
 
-    data.request = JSON.stringify(payload, null, 2)
+    update.request = JSON.stringify(payload, null, 2)
 
     axios.post(url, payload)
         .then(function (response) {
-            data.success = 'Success!'
-            data.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
+            update.success = 'Success!'
+            update.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
             passToParent(data)
         })
         .catch(function (error) {
-            data.error = error
-            passToParent(data)
+            update.error = error
+            passToParent(update)
         });
   }
   

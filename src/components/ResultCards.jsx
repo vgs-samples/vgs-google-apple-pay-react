@@ -1,10 +1,9 @@
 
-import { useState } from "react"
 import { Card, CardHeader, Heading, Box, Text, CardBody, Stack, StackDivider } from '@chakra-ui/react'
 
 const ResultCards = (props) => {
 
-  let data = useState(props.data) 
+  let data = props.data
 
   return (
     <Card>
@@ -19,7 +18,7 @@ const ResultCards = (props) => {
               Success
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.success.toString()}
+              {data.success?.toString()}
             </Text>
           </Box>
           <Box>
@@ -27,7 +26,7 @@ const ResultCards = (props) => {
               Error
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.error.toString()}
+              {data.error?.toString()}
             </Text>
           </Box>
           <Box>
@@ -35,7 +34,7 @@ const ResultCards = (props) => {
               Request
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.request.toString()}
+              {data.request?.toString()}
             </Text>
           </Box>
           <Box>
@@ -43,7 +42,7 @@ const ResultCards = (props) => {
               Response
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.response.toString()}
+              {data.response?.toString()}
             </Text>
           </Box>
         </Stack>

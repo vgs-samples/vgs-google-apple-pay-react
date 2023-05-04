@@ -14,6 +14,7 @@ const ApplePay = (props) => {
 
   const ApplePaySession = window.ApplePaySession
   const { vgs, data, passToParent } = props
+  const update = Object.assign({}, data)
   const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   const backend = document.location.href + "paymentSession"
 
@@ -73,7 +74,7 @@ const ApplePay = (props) => {
 
     const performTransaction = (details, callback) => {
 
-      data.request = details.token
+      update.request = details.token
     
       axios.post(VGS_URL, { token: details.token },
         {
@@ -83,19 +84,19 @@ const ApplePay = (props) => {
           },
         }).then(res => {
           if (res.status !== 200) {
-            data.error = res.data
-            passToParent("apple", data)
+            update.error = res.data
+            passToParent('apple', update)
             callback({ approved: false })
           } else {
-            data.success = 'Success!'
-            data.response = res.data.data
-            passToParent("apple", data)
+            update.success = 'Success!'
+            update.response = res.data.data
+            passToParent('apple', update)
             callback({ approved: true })
           }
         }).catch(error => {
           // Not a processing error, code/fetch error
 
-          passToParent("apple", data)
+          passToParent('apple', update)
           console.log(error)
           callback({ approved: false })
         });
