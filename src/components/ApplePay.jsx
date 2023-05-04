@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 import axios from 'axios'
+import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
 
 // You must include the ApplePay JS SDK in your page.
@@ -14,8 +14,8 @@ const ApplePay = (props) => {
 
   const ApplePaySession = window.ApplePaySession
   const { vgs, state, passToParent } = props
-  const url = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
-  let backend = "yourbackendserver.com"
+  const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
+  let backend = document.location.href + "paymentSession"
 
   // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
   // useEffect(() => {
@@ -52,40 +52,71 @@ const ApplePay = (props) => {
     session.begin()
     
     session.onvalidatemerchant = event => {
-        console.log(event)
-        // Call your own server to request a new merchant session.
-        // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-        axios.get(backend)
-          .then(res => res.json()) // Parse response as JSON.
-          .then(merchantSession => {
-            session.completeMerchantValidation(merchantSession);
-          })
-          .catch(err => {
-            console.error("Error fetching merchant session", err);
-          });
+    
+    console.log(event)
+
+      // Call your own server to request a new merchant session.
+      // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
+
+    fetch(backend, {
+          method: "POST", 
+          headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify({appleUrl: event.validationURL})
+      }).then(res => res.json()) // Parse response as JSON.
+      .then(merchantSession => {
+          console.log(merchantSession)
+          session.completeMerchantValidation(merchantSession);
+        })
+        .catch(err => {
+          console.error("Error fetching merchant session", err);
+        })
     };
 
     session.onshippingcontactselected = event => {
       // Do things
     }
     
-    session.onpaymentauthorized = token => {
-      axios.post(url, token)
-        .then(function (response) {
-          state.success = 'Success!'
-          session.completePayment({"status": 0})
-          state.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
-          passToParent(state)
-        })
-        .catch(function (error) {
-          state.error = error
-          session.completePayment({
-            "status": 1,
-            "errors": [error]
-        })
-          passToParent(state)
-        });
+    session.onpaymentauthorized = function (event) {
+      performTransaction(event.payment, function (outcome) {
+        if (outcome.approved) {
+          session.completePayment(ApplePaySession.STATUS_SUCCESS)
+          console.log(outcome)
+        } else {
+          session.completePayment(ApplePaySession.STATUS_FAILURE)
+          console.log(outcome)
+        }
+      })
     }
+
+    const performTransaction = (details, callback) => {
+
+      state.request = JSON.stringify(details.token)
+    
+      axios.post(VGS_URL, {token: details.token},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            'Access-Control-Allow-Origin': '*'
+          },
+      }).then(res => {
+        if (res.status != 200) {
+          state.error = JSON.stringify(res)
+          passToParent(state)
+          callback({approved: false})
+        } else {
+          state.success = 'Success!'
+          state.response = JSON.stringify(res)
+          passToParent(state)
+          callback({approved: true})
+        }
+      }).catch(error => {
+          // Not a processing error, code/fetch error
+          callback({ approved: false })
+          passToParent(state)
+          console.log(error)
+        });
   }
 
   return (
@@ -95,7 +126,7 @@ const ApplePay = (props) => {
           ? <apple-pay-button onMouseDown={createApplePaySession}  buttonstyle="black" type="pay" locale="en" style={{ height: "45px" }}></apple-pay-button>
           : <Alert status='warning' variant='solid'>
               <AlertIcon />
-              <AlertDescription>Apple Pay is not supported with current configuration.</AlertDescription>
+              <AlertDescription>Apple Pay is not supported with your current configuration.</AlertDescription>
             </Alert>
       }
       

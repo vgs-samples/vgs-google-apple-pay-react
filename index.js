@@ -2,7 +2,9 @@
 const https = require("https");
 const fs = require("fs");
 const path = require("path")
-
+const axios = require('axios')
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 
 // Import the express module
 const express = require("express");
@@ -23,41 +25,28 @@ app.get('/', (req,res)=>{
     res.sendFile("index.html")
 })
 
-app.get('/session', (req, res) => {
+app.post('/paymentSession', jsonParser,  async (req, res) => {
 
-  var options = {
-    hostname: "apple-pay-gateway.apple.com",
-    port: 443,
-    path: '/paymentSession',
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    pfx: fs.readFileSync(
-      path.resolve(__dirname, 'applepay.p12')
-    ),
-    passphrase: '********',
-    body: {
-      merchantIdentifier: "merchant.verygoodsecurity.demo.applepay",
-      displayName: "Very Good Security",
-      initiative: "web",
-      initiativeContext: ""
-    }
-  };
-  
-  var post = https.request(options, (res) => {
-    console.log('statusCode:', res.statusCode);
-    console.log('headers:', res.headers);
+  const { appleUrl } = req.body
 
-    post.on('data', (d) => {
-      process.stdout.write(d);
-    });
-  });
+  // use set the certificates for the POST request
+  const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.pem')),
+      key: fs.readFileSync(path.join(__dirname, './apple-pay/certificate_sandbox.key')),
+  })
 
-  post.on('error', (e) => {
-    console.error(e);
-  });
-
-  post.end();
-
+  const response = await axios.post(
+      appleUrl,
+      {
+          merchantIdentifier: 'merchant.verygoodsecurity.demo.applepay',
+          initiativeContext: 'vgs-google-apple-pay-demo-js.herokuapp.com',
+          initiative: "web",
+          displayName: "Very Good Security Demo Account"
+      },
+      {
+          httpsAgent,
+      }
+  )
+  res.send(response.data)
 })
