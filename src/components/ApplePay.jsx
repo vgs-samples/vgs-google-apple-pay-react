@@ -15,7 +15,7 @@ const ApplePay = (props) => {
   const ApplePaySession = window.ApplePaySession
   const { vgs, state, passToParent } = props
   const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
-  let backend = document.location.href + "paymentSession"
+  const backend = document.location.href + "paymentSession"
 
   // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/checking_for_apple_pay_availability
   // useEffect(() => {
@@ -52,43 +52,24 @@ const ApplePay = (props) => {
     session.begin()
     
     session.onvalidatemerchant = event => {
-    
-    console.log(event)
+
+      console.log(event)
 
       // Call your own server to request a new merchant session.
       // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-
-    fetch(backend, {
-          method: "POST", 
-          headers: {
-            "Content-Type": "application/json",
-          },
-        body: JSON.stringify({appleUrl: event.validationURL})
-      }).then(res => res.json()) // Parse response as JSON.
-      .then(merchantSession => {
-          console.log(merchantSession)
-          session.completeMerchantValidation(merchantSession);
-        })
-        .catch(err => {
-          console.error("Error fetching merchant session", err);
-        })
+      axios.post(backend, {appleUrl: event.validationURL}, {
+            method: "POST", 
+            headers: {
+              "Content-Type": "application/json",
+            }
+        }).then(merchantSession => {
+            console.log(merchantSession)
+            session.completeMerchantValidation(merchantSession);
+          })
+          .catch(err => {
+            console.error("Error fetching merchant session", err);
+          })
     };
-
-    session.onshippingcontactselected = event => {
-      // Do things
-    }
-    
-    session.onpaymentauthorized = function (event) {
-      performTransaction(event.payment, function (outcome) {
-        if (outcome.approved) {
-          session.completePayment(ApplePaySession.STATUS_SUCCESS)
-          console.log(outcome)
-        } else {
-          session.completePayment(ApplePaySession.STATUS_FAILURE)
-          console.log(outcome)
-        }
-      })
-    }
 
     const performTransaction = (details, callback) => {
 
@@ -102,12 +83,12 @@ const ApplePay = (props) => {
           },
         }).then(res => {
           if (res.status !== 200) {
-            state.error = JSON.stringify(res)
+            state.error = JSON.stringify(res.data)
             passToParent(state)
             callback({ approved: false })
           } else {
             state.success = 'Success!'
-            state.response = JSON.stringify(res)
+            state.response = JSON.stringify(res.data)
             passToParent(state)
             callback({ approved: true })
           }
@@ -118,6 +99,20 @@ const ApplePay = (props) => {
           console.log(error)
         });
     }
+
+    session.onpaymentauthorized = function (event) {
+      performTransaction(event.payment, function (outcome) {
+        if (outcome.approved) {
+          session.completePayment(ApplePaySession.STATUS_SUCCESS)
+          console.log(outcome)
+        } else {
+          session.completePayment(ApplePaySession.STATUS_FAILURE)
+          console.log(outcome)
+        }
+      })
+    }
+
+    
   }
 
   return (
