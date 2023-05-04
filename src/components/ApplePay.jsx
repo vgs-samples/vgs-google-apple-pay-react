@@ -94,7 +94,7 @@ const ApplePay = (props) => {
           }
         }).catch(error => {
           // Not a processing error, code/fetch error
-          
+
           passToParent("apple", state)
           console.log(error)
           callback({ approved: false })
