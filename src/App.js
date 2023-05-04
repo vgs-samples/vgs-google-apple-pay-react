@@ -29,7 +29,7 @@ function App() {
     success: "Submit a request to see details",
     error: "Submit a request to see details",
     request: "Submit a request to see details",
-    respons: "Submit a request to see details"
+    response: "Submit a request to see details"
   }
   const [googlePayState, updateGooglePayState] = useState(data)
   const [applePayState, updateAppleState] = useState(data)

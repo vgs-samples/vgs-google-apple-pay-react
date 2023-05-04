@@ -18,7 +18,7 @@ const ResultCards = (props) => {
               Success
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.success}
+              {data.success.toString()}
             </Text>
           </Box>
           <Box>
@@ -26,7 +26,7 @@ const ResultCards = (props) => {
               Error
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.error}
+              {data.error.toString()}
             </Text>
           </Box>
           <Box>
@@ -34,7 +34,7 @@ const ResultCards = (props) => {
               Request
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.request}
+              {data.request.toString()}
             </Text>
           </Box>
           <Box>
@@ -42,7 +42,7 @@ const ResultCards = (props) => {
               Response
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data.response}
+              {data.response.toString()}
             </Text>
           </Box>
         </Stack>

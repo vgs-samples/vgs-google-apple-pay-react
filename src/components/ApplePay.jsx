@@ -88,7 +88,7 @@ const ApplePay = (props) => {
             callback({ approved: false })
           } else {
             data.success = 'Success!'
-            data.response = res.data
+            data.response = res.data.data
             passToParent("apple", data)
             callback({ approved: true })
           }
