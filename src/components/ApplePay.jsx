@@ -1,4 +1,4 @@
-import React, {usedata, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios'
 import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
@@ -10,7 +10,7 @@ import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
 const ApplePay = (props) => {
 
-  const [canLoad, setLoad] = usedata(false)
+  const [canLoad, setLoad] = useState(false)
 
   const ApplePaySession = window.ApplePaySession
   const { vgs, data, passToParent } = props
@@ -73,7 +73,7 @@ const ApplePay = (props) => {
 
     const performTransaction = (details, callback) => {
 
-      data.request = details
+      data.request = details.token
     
       axios.post(VGS_URL, { token: details.token },
         {
