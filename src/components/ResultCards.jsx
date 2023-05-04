@@ -18,7 +18,7 @@ const ResultCards = (props) => {
               Success
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.success ? state.success.toString() : "Submit a request to see details"}
+              {state?.success ? JSON.stringify(state.success) : "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -26,7 +26,7 @@ const ResultCards = (props) => {
               Error
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.error ? state.error.toString() : "Submit a request to see details"}
+              {state?.error ? JSON.stringify(state.error): "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -34,7 +34,7 @@ const ResultCards = (props) => {
               Request
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.request ? state.request.toString() : "Submit a request to see details"}
+              {state?.request ? JSON.stringify(state.request) : "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -42,7 +42,7 @@ const ResultCards = (props) => {
               Response
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.response ? state.response.toString() : "Submit a request to see details"}
+              {state?.response ? JSON.stringify(state.response) : "Submit a request to see details"}
             </Text>
           </Box>
         </Stack>
