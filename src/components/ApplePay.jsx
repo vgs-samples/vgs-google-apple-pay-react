@@ -73,7 +73,7 @@ const ApplePay = (props) => {
 
     const performTransaction = (details, callback) => {
 
-      data.request = details.token
+      data.request = details
     
       axios.post(VGS_URL, { token: details.token },
         {
