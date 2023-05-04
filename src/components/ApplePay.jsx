@@ -94,29 +94,30 @@ const ApplePay = (props) => {
 
       state.request = JSON.stringify(details.token)
     
-      axios.post(VGS_URL, {token: details.token},
+      axios.post(VGS_URL, { token: details.token },
         {
           headers: {
             "Content-Type": "application/json",
             'Access-Control-Allow-Origin': '*'
           },
-      }).then(res => {
-        if (res.status != 200) {
-          state.error = JSON.stringify(res)
-          passToParent(state)
-          callback({approved: false})
-        } else {
-          state.success = 'Success!'
-          state.response = JSON.stringify(res)
-          passToParent(state)
-          callback({approved: true})
-        }
-      }).catch(error => {
+        }).then(res => {
+          if (res.status !== 200) {
+            state.error = JSON.stringify(res)
+            passToParent(state)
+            callback({ approved: false })
+          } else {
+            state.success = 'Success!'
+            state.response = JSON.stringify(res)
+            passToParent(state)
+            callback({ approved: true })
+          }
+        }).catch(error => {
           // Not a processing error, code/fetch error
           callback({ approved: false })
           passToParent(state)
           console.log(error)
         });
+    }
   }
 
   return (
