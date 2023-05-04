@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { ChakraProvider, Center, Box, Divider } from '@chakra-ui/react'
+import { ChakraProvider, Center, Box, Flex, Divider } from '@chakra-ui/react'
 import { ReactSVG } from 'react-svg'
 
 import ResultCards from "./components/ResultCards.jsx"
@@ -22,7 +22,7 @@ function App() {
     VAULT_ID: "tntq31aihwk",
     ORG_ID: "ACmsziNd1zaK1wPseoXvkptS",
     GOOGLE_PAY_ROUTE_ID: "dbcb64c8-a58e-40f6-addc-9c8b363bebb3",
-    APPLE_PAY_ROUTE_ID: "0b807ac5-d13b-4511-b7b7-99c4aaa2d0df"
+    APPLE_PAY_ROUTE_ID: "87791d38-602d-4403-862c-59431c9a5150"
   }
   
   const [googlePayState, updateGooglePayState] = useState({})
@@ -45,23 +45,25 @@ function App() {
           <ReactSVG beforeInjection={(svg) => {svg.setAttribute('style', 'width: 150px')}} src="vgs-initials-color.svg" />
         </Center>
         <Center>
-          <Box w='40%' p={5} color='white'>
-              <ResultCards title="Google Pay Report" state={googlePayState} />
-              <Box w='100%' p={4} color='white'></Box>
-              <Center>
-                <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
-              </Center>
-          </Box>
-          <Center>
-            <Divider orientation='vertical' />
-          </Center>
-          <Box w='40%' p={5} color='white'>
-              <ResultCards title="Apple Pay Report" state={applePayState} />
-              <Box w='100%' p={4} color='white'></Box>
-              <Center>
-                <ApplePay state={applePayState} passToParent={passToParent} vgs={vgs} />
-              </Center>
-          </Box>
+          <Flex>
+            <Box w='40%' p={5} color='white'>
+                <ResultCards title="Google Pay Report" state={googlePayState} />
+                <Box w='100%' p={4} color='white'></Box>
+                <Center>
+                  <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
+                </Center>
+            </Box>
+            <Center>
+              <Divider orientation='vertical' />
+            </Center>
+            <Box w='40%' p={5} color='white'>
+                <ResultCards title="Apple Pay Report" state={applePayState} />
+                <Box w='100%' p={4} color='white'></Box>
+                <Center>
+                  <ApplePay state={applePayState} passToParent={passToParent} vgs={vgs} />
+                </Center>
+            </Box>
+          </Flex>
         </Center>
       </ChakraProvider>
     </CacheProvider>
