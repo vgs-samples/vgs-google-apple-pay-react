@@ -73,7 +73,7 @@ const ApplePay = (props) => {
 
     const performTransaction = (details, callback) => {
 
-      state.request = JSON.stringify(details.token)
+      state.request = details.token
     
       axios.post(VGS_URL, { token: details.token },
         {
@@ -83,12 +83,12 @@ const ApplePay = (props) => {
           },
         }).then(res => {
           if (res.status !== 200) {
-            state.error = JSON.stringify(res.data)
+            state.error = res.data
             passToParent("apple", state)
             callback({ approved: false })
           } else {
             state.success = 'Success!'
-            state.response = JSON.stringify(res.data)
+            state.response = res.data
             passToParent("apple", state)
             callback({ approved: true })
           }
