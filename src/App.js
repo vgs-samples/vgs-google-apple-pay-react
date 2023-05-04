@@ -44,7 +44,7 @@ function App() {
         </Center>
         <Center>
           <Box w='40%' p={5} color='white'>
-              <ResultCards title="Google Pay Report" state={googlePayState} />
+              <ResultCards title="Google Pay Report" data={googlePayState} />
               <Box w='100%' p={4} color='white'></Box>
               <Center>
                 <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
