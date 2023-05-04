@@ -1,9 +1,10 @@
 
+import { useState } from "react"
 import { Card, CardHeader, Heading, Box, Text, CardBody, Stack, StackDivider } from '@chakra-ui/react'
 
 const ResultCards = (props) => {
 
-  let data = props.data 
+  let data = useState(props.data) 
 
   return (
     <Card>

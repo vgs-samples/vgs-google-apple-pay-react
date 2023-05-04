@@ -54,14 +54,14 @@ function App() {
               <ResultCards title="Google Pay Report" data={googlePayState} />
               <Box w='100%' p={4} color='white'></Box>
               <Center>
-                <GooglePay data={googlePayState} passToParent={passToParent} vgs={vgs}  />
+                <GooglePay data={googlePayState} passToParent={passToParent} vgs={vgs} key="google" />
               </Center>
           </Box>
           <Center>
             <Divider orientation='vertical' />
           </Center>
           <Box w='40%' p={5} color='white'>
-              <ResultCards title="Apple Pay Report" data={applePayState} />
+              <ResultCards title="Apple Pay Report" data={applePayState} key="apple" />
               <Box w='100%' p={4} color='white'></Box>
               <Center>
                 <ApplePay data={applePayState} passToParent={passToParent} vgs={vgs} />
