@@ -57,18 +57,18 @@ const ApplePay = (props) => {
 
       // Call your own server to request a new merchant session.
       // See: https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/requesting_an_apple_pay_payment_session
-      axios.post(backend, {appleUrl: event.validationURL}, {
-            method: "POST", 
-            headers: {
-              "Content-Type": "application/json",
-            }
-        }).then(merchantSession => {
-            console.log(merchantSession)
-            session.completeMerchantValidation(merchantSession);
-          })
-          .catch(err => {
-            console.error("Error fetching merchant session", err);
-          })
+      axios.post(backend, { appleUrl: event.validationURL },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+      }).then(res => {
+          console.log(res.data)
+          session.completeMerchantValidation(res.data);
+        })
+        .catch(err => {
+          console.error("Error fetching merchant session", err);
+        })
     };
 
     const performTransaction = (details, callback) => {
@@ -113,7 +113,7 @@ const ApplePay = (props) => {
     }
 
     session.begin()
-    
+
   }
 
   return (
