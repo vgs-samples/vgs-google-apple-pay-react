@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {usedata, useEffect} from 'react';
 import axios from 'axios'
 import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
@@ -10,10 +10,10 @@ import { Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
 const ApplePay = (props) => {
 
-  const [canLoad, setLoad] = useState(false)
+  const [canLoad, setLoad] = usedata(false)
 
   const ApplePaySession = window.ApplePaySession
-  const { vgs, state, passToParent } = props
+  const { vgs, data, passToParent } = props
   const VGS_URL = `https://${vgs.VAULT_ID}-${vgs.APPLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
   const backend = document.location.href + "paymentSession"
 
@@ -73,7 +73,7 @@ const ApplePay = (props) => {
 
     const performTransaction = (details, callback) => {
 
-      state.request = details.token
+      data.request = details.token
     
       axios.post(VGS_URL, { token: details.token },
         {
@@ -83,19 +83,19 @@ const ApplePay = (props) => {
           },
         }).then(res => {
           if (res.status !== 200) {
-            state.error = res.data
-            passToParent("apple", state)
+            data.error = res.data
+            passToParent("apple", data)
             callback({ approved: false })
           } else {
-            state.success = 'Success!'
-            state.response = res.data
-            passToParent("apple", state)
+            data.success = 'Success!'
+            data.response = res.data
+            passToParent("apple", data)
             callback({ approved: true })
           }
         }).catch(error => {
           // Not a processing error, code/fetch error
 
-          passToParent("apple", state)
+          passToParent("apple", data)
           console.log(error)
           callback({ approved: false })
         });

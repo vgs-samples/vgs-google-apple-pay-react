@@ -47,7 +47,7 @@ function App() {
               <ResultCards title="Google Pay Report" data={googlePayState} />
               <Box w='100%' p={4} color='white'></Box>
               <Center>
-                <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
+                <GooglePay data={googlePayState} passToParent={passToParent} vgs={vgs}  />
               </Center>
           </Box>
           <Center>

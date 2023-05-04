@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const GooglePay = (props) => {
 
-  const { vgs, state, passToParent } = props
+  const { vgs, data, passToParent } = props
 
   const processGooglePay = (token) => {
     // show returned data in developer console for debugging
@@ -20,17 +20,17 @@ const GooglePay = (props) => {
         }
     }
 
-    state.request = JSON.stringify(payload, null, 2)
+    data.request = JSON.stringify(payload, null, 2)
 
     axios.post(url, payload)
         .then(function (response) {
-            state.success = 'Success!'
-            state.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
-            passToParent(state)
+            data.success = 'Success!'
+            data.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
+            passToParent(data)
         })
         .catch(function (error) {
-            state.error = error
-            passToParent(state)
+            data.error = error
+            passToParent(data)
         });
   }
   
