@@ -29,6 +29,7 @@ function App() {
   const [applePayState, updateApplePayState] = useState({})
 
   const passToParent = (type, state) => {
+    console.log(type, state)
     if (type === 'google') {
       updateGooglePayState(state)
     } else {
