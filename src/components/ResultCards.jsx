@@ -3,7 +3,7 @@ import { Card, CardHeader, Heading, Box, Text, CardBody, Stack, StackDivider } f
 
 const ResultCards = (props) => {
 
-  let state = props.state 
+  let data = props.data 
 
   return (
     <Card>
@@ -18,7 +18,7 @@ const ResultCards = (props) => {
               Success
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.success ? JSON.stringify(state.success) : "Submit a request to see details"}
+              {data?.success ? JSON.stringify(data.success) : "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -26,7 +26,7 @@ const ResultCards = (props) => {
               Error
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.error ? JSON.stringify(state.error): "Submit a request to see details"}
+              {data?.error ? JSON.stringify(data.error): "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -34,7 +34,7 @@ const ResultCards = (props) => {
               Request
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.request ? JSON.stringify(state.request) : "Submit a request to see details"}
+              {data?.request ? JSON.stringify(data.request) : "Submit a request to see details"}
             </Text>
           </Box>
           <Box>
@@ -42,7 +42,7 @@ const ResultCards = (props) => {
               Response
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {state?.response ? JSON.stringify(state.response) : "Submit a request to see details"}
+              {data?.response ? JSON.stringify(data.response) : "Submit a request to see details"}
             </Text>
           </Box>
         </Stack>

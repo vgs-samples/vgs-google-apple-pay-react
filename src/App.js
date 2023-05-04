@@ -26,15 +26,12 @@ function App() {
   }
   
   const [googlePayState, updateGooglePayState] = useState({})
-  const [applePayState, updateApplePayState] = useState({})
+  const [applePayState, updateAppleState] = useState({})
 
   const passToParent = (type, state) => {
     console.log(type, state)
-    if (type === 'google') {
-      updateGooglePayState(state)
-    } else {
-      updateApplePayState(state)
-    }
+    if (type === 'google') updateGooglePayState(state)
+    else if (type === 'apple') updateAppleState(state)
   }
 
 
@@ -57,10 +54,10 @@ function App() {
             <Divider orientation='vertical' />
           </Center>
           <Box w='40%' p={5} color='white'>
-              <ResultCards title="Apple Pay Report" state={applePayState} />
+              <ResultCards title="Apple Pay Report" data={applePayState} />
               <Box w='100%' p={4} color='white'></Box>
               <Center>
-                <ApplePay state={applePayState} passToParent={passToParent} vgs={vgs} />
+                <ApplePay data={applePayState} passToParent={passToParent} vgs={vgs} />
               </Center>
           </Box>
         </Center>
