@@ -25,13 +25,20 @@ function App() {
     APPLE_PAY_ROUTE_ID: "87791d38-602d-4403-862c-59431c9a5150"
   }
   
-  const [googlePayState, updateGooglePayState] = useState({})
-  const [applePayState, updateAppleState] = useState({})
+  const data = {
+    success: "Submit a request to see details",
+    error: "Submit a request to see details",
+    request: "Submit a request to see details",
+    respons: "Submit a request to see details"
+  }
+  const [googlePayState, updateGooglePayState] = useState(data)
+  const [applePayState, updateAppleState] = useState(data)
 
   const passToParent = (type, state) => {
     console.log(type, state)
     if (type === 'google') updateGooglePayState(state)
     else if (type === 'apple') updateAppleState(state)
+    console.log(applePayState, googlePayState)
   }
 
 

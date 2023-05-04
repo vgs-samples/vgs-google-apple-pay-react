@@ -18,7 +18,7 @@ const ResultCards = (props) => {
               Success
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data?.success ? JSON.stringify(data.success) : "Submit a request to see details"}
+              {data.success}
             </Text>
           </Box>
           <Box>
@@ -26,7 +26,7 @@ const ResultCards = (props) => {
               Error
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data?.error ? JSON.stringify(data.error): "Submit a request to see details"}
+              {data.error}
             </Text>
           </Box>
           <Box>
@@ -34,7 +34,7 @@ const ResultCards = (props) => {
               Request
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data?.request ? JSON.stringify(data.request) : "Submit a request to see details"}
+              {data.request}
             </Text>
           </Box>
           <Box>
@@ -42,7 +42,7 @@ const ResultCards = (props) => {
               Response
             </Heading>
             <Text pt='2' fontSize='sm'>
-              {data?.response ? JSON.stringify(data.response) : "Submit a request to see details"}
+              {data.response}
             </Text>
           </Box>
         </Stack>
