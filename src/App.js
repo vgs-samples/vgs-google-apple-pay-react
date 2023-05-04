@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import { ChakraProvider, Center, Flex, Box, Divider } from '@chakra-ui/react'
+import { ChakraProvider, Center, Box, Divider } from '@chakra-ui/react'
 import { ReactSVG } from 'react-svg'
 
 import ResultCards from "./components/ResultCards.jsx"
@@ -44,7 +44,7 @@ function App() {
         <Center>
           <ReactSVG beforeInjection={(svg) => {svg.setAttribute('style', 'width: 150px')}} src="vgs-initials-color.svg" />
         </Center>
-        <Flex minWidth='max-content' alignItems='center' gap='2'>
+        <Center>
           <Box w='40%' p={5} color='white'>
               <ResultCards title="Google Pay Report" state={googlePayState} />
               <Box w='100%' p={4} color='white'></Box>
@@ -52,7 +52,9 @@ function App() {
                 <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
               </Center>
           </Box>
-          <Divider orientation='vertical' />
+          <Center>
+            <Divider orientation='vertical' />
+          </Center>
           <Box w='40%' p={5} color='white'>
               <ResultCards title="Apple Pay Report" state={applePayState} />
               <Box w='100%' p={4} color='white'></Box>
@@ -60,7 +62,7 @@ function App() {
                 <ApplePay state={applePayState} passToParent={passToParent} vgs={vgs} />
               </Center>
           </Box>
-        </Flex>
+        </Center>
       </ChakraProvider>
     </CacheProvider>
   )
