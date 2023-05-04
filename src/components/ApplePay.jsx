@@ -49,7 +49,7 @@ const ApplePay = (props) => {
     }
     var session = new ApplePaySession(8, request);
     
-    session.begin()
+    
     
     session.onvalidatemerchant = event => {
 
@@ -112,6 +112,7 @@ const ApplePay = (props) => {
       })
     }
 
+    session.begin()
     
   }
 
