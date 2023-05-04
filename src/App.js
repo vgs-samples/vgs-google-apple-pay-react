@@ -52,9 +52,7 @@ function App() {
                 <GooglePay state={googlePayState} passToParent={passToParent} vgs={vgs}  />
               </Center>
           </Box>
-          <Center>
-            <Divider orientation='vertical' />
-          </Center>
+          <Divider orientation='vertical' />
           <Box w='40%' p={5} color='white'>
               <ResultCards title="Apple Pay Report" state={applePayState} />
               <Box w='100%' p={4} color='white'></Box>
