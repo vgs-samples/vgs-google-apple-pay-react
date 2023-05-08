@@ -31,14 +31,13 @@ function App() {
     request: "Submit a request to see details",
     response: "Submit a request to see details"
   }
+
   const [googlePayState, updateGooglePayState] = useState(data)
   const [applePayState, updateApplePayState] = useState(data)
 
   const passToParent = (type, state) => {
-    console.log(type, state)
     if (type === 'google') updateGooglePayState(state)
     else if (type === 'apple') updateApplePayState(state)
-    console.log(applePayState, googlePayState)
   }
 
 
