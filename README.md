@@ -2,7 +2,7 @@
 
 ![Alt text](/public/splash.png?raw=true "Title")
 
-### [See here for a Live Demo](https://vgs-google-apple-pay-demo-js.herokuapp.com/)
+### [See here for a Live Demo](https://vgs-google-apple-pay-react.herokuapp.com)
 
 ## To run the app: 
 
