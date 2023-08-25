@@ -19,10 +19,10 @@ const emotionCache = createCache({
 function App() {
 
   const vgs = {
-    VAULT_ID: "tntq31aihwk",
-    ORG_ID: "ACmsziNd1zaK1wPseoXvkptS",
+    VAULT_ID: "tnt2jrieuaw",
+    ORG_ID: "ACf8b17KrZSTThsbY8cHYjHs",
     GOOGLE_PAY_ROUTE_ID: "dbcb64c8-a58e-40f6-addc-9c8b363bebb3",
-    APPLE_PAY_ROUTE_ID: "87791d38-602d-4403-862c-59431c9a5150"
+    APPLE_PAY_ROUTE_ID: "f09209dc-833f-4114-8fd7-20006b80c6af"
   }
   
   const data = {

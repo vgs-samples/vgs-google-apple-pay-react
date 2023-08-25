@@ -22,7 +22,7 @@ app.listen(process.env.PORT || 3000, () => {
 // This code tells the service to listed to any request coming to the / route.
 // Once the request is received, it will display a message "Hello from express server."
 app.get('/', (req,res)=>{
-    res.sendFile("index.html")
+    res.sendFile("./index.html")
 })
 
 app.post('/paymentSession', jsonParser,  async (req, res) => {

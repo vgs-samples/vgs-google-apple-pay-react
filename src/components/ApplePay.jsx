@@ -76,7 +76,7 @@ const ApplePay = (props) => {
 
       update.request = JSON.stringify(details.token)
     
-      axios.post(VGS_URL, { token: details.token },
+      axios.post(VGS_URL, details.token,
         {
           headers: {
             "Content-Type": "application/json",
