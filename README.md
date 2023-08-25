@@ -1,4 +1,4 @@
-# Very Good Security - Google and Apple Pay React Example
+# Very Good Security - Google and Apple Pay React
 
 ![Alt text](/public/splash.png?raw=true "Title")
 
