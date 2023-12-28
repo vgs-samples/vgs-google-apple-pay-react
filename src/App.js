@@ -22,7 +22,8 @@ function App() {
     VAULT_ID: "tntq31aihwk",
     ORG_ID: "ACmsziNd1zaK1wPseoXvkptS",
     GOOGLE_PAY_ROUTE_ID: "dbcb64c8-a58e-40f6-addc-9c8b363bebb3",
-    APPLE_PAY_ROUTE_ID: "87791d38-602d-4403-862c-59431c9a5150"
+    APPLE_PAY_ROUTE_ID: "87791d38-602d-4403-862c-59431c9a5150",
+    APPLE_PAY_MERCHANT_ID: "merchant.verygoodsecurity.demo.applepay"
   }
   
   const data = {

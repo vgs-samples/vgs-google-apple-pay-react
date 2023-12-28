@@ -32,7 +32,7 @@ const ApplePay = (props) => {
 
   useEffect(() => {
     if (ApplePaySession) {
-      var merchantIdentifier = 'merchant.verygoodsecurity.demo.applepay';
+      var merchantIdentifier = props.vgs.APPLE_PAY_MERCHANT_ID;
       if (ApplePaySession.canMakePayments(merchantIdentifier)) {
         setLoad(true)
       }
@@ -46,7 +46,7 @@ const ApplePay = (props) => {
       currencyCode: 'USD',
       supportedNetworks: ['visa', 'masterCard', 'amex', 'discover'],
       merchantCapabilities: ['supports3DS'],
-      total: { label: 'Very Good Security', amount: '10.00' },
+      total: { label: 'Very Good Security', amount: '0.00' },
     }
     var session = new ApplePaySession(8, request);
     

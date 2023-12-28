@@ -14,12 +14,14 @@ const GooglePay = (props) => {
     // unless they're used for merchant-initiated transactions with user
     // consent in place.
     let paymentToken = JSON.parse(token.paymentMethodData.tokenizationData.token);
+    print(token)
     let url = `https://${vgs.VAULT_ID}-${vgs.GOOGLE_PAY_ROUTE_ID}.sandbox.verygoodproxy.com/post`
     let payload = {
         google_pay_payload: {
             token: paymentToken
         }
     }
+    
 
     update.request = JSON.stringify(payload, null, 2)
 
@@ -46,7 +48,7 @@ const GooglePay = (props) => {
             type: 'CARD',
             parameters: {
               allowedAuthMethods: ['PAN_ONLY'],
-              allowedCardNetworks: ['MASTERCARD', 'VISA'],
+              allowedCardNetworks: ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD", "VISA"],
             },
             tokenizationSpecification: {
               type: 'PAYMENT_GATEWAY',
