@@ -26,13 +26,13 @@ const GooglePay = (props) => {
 
     axios.post(url, payload)
         .then(function (response) {
-            update.success = 'Success!'
-            update.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
-            passToParent(data)
+          update.success = 'Success!'
+          update.response = JSON.stringify(JSON.parse(response.data.data), null, 2)
+          passToParent('google', update)
         })
         .catch(function (error) {
             update.error = error
-            passToParent(update)
+            passToParent('google', update)
         });
   }
   
